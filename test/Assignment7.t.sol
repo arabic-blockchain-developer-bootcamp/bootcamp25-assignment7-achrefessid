@@ -16,15 +16,15 @@ contract Assignment7Test is Test {
 
     function testMintAndTransfer() public {
         // Mint tokens to the test contract
-        vm.prank(this);
-        assignment.mint(address(this), 1000 * 10**18);
+        vm.prank(owner);
+        assignment.mint(owner, 1000 * 10**18);
 
         // Check balance of the test contract
-        uint256 balance = assignment.balanceOf(address(this));
+        uint256 balance = assignment.balanceOf(owner);
         assertEq(balance, 1000 * 10**18, "Balance should be 1000 tokens");
         
         // Transfer some tokens
-        vm.prank(this);
+        vm.prank(owner);
         assignment.transfer(recipient, 500 * 10**18);
 
         // Check recipient balance
@@ -32,7 +32,7 @@ contract Assignment7Test is Test {
         assertEq(recipientBalance, 500 * 10**18, "Recipient should receive 500 tokens");
 
         // Ensure owner's new balance
-        uint256 newOwnerBalance = assignment.balanceOf(this);
+        uint256 newOwnerBalance = assignment.balanceOf(owner);
         assertEq(newOwnerBalance, 500 * 10**18, "Owner should have 500 tokens left");
     }
 }
